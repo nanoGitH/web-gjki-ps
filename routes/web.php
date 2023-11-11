@@ -1,12 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardPetugasController;
 use App\Http\Controllers\DashboardActivityController;
+use App\Http\Controllers\LoginController;
+use App\Models\Petugas;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,37 +34,9 @@ Route::get('/about/schedule', [AboutController::class, 'schedule']);
 
 Route::get('/contact', [ContactController::class, 'index']);
 
-Route::get('/login', function(){
-    return view('login',[
-        'title' => 'Login'
-    ]);
-})->name('login')->middleware('guest');
-Route::post('/login', function(){
-    $credentials = request()->validate([
-        'email' => ['required', 'email:dns'],
-        'password' => 'required'
-    ]);
-
-    if (Auth::attempt($credentials)) {
-        request()->session()->regenerate();
-
-        return redirect()->intended('/dashboard');
-    }
-
-    return back()->with([
-        'loginError' => 'Email/password salah',
-    ])->onlyInput('email');
-});
-
-Route::post('/logout', function(){
-    Auth::logout();
- 
-    request()->session()->invalidate();
- 
-    request()->session()->regenerateToken();
- 
-    return redirect('/'); 
-});
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/dashboard', function(){
     return view('dashboard.index');

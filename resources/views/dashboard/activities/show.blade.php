@@ -6,7 +6,7 @@
   <p>{{ $activity->slug }}</p>
 
   <a href="/dashboard/activities" class="btn btn-primary"><span data-feather="arrow-left"></span> back</a>
-  <a href="/dashboard/posts/{{ $activity->slug }}/edit" class="btn btn-warning"><span data-feather="edit"></span> edit</a>
+  <a href="/dashboard/activities/{{ $activity->slug }}/edit" class="btn btn-warning"><span data-feather="edit"></span> edit</a>
 
   <p>{{ $activity->img }}</p>
   <p>{!! $activity->body !!}</p>

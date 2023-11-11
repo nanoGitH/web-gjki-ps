@@ -20,7 +20,7 @@
           <th scope="col">Name</th>
           <th scope="col">Slug</th>
           <th scope="col">Image</th>
-          <th scope="col">Action</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
